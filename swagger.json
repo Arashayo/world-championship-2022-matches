@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Meczy",
+    "description": "API umożliwiające dodawanie i wyszukiwanie meczy"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/allMatches": {
+      "get": {
+        "summary": "Zwraca wszystkie mecze",
+        "responses": {
+          "200": {
+            "description": "Zwraca tablicę z meczami",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Match"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/addMatch": {
+      "post": {
+        "summary": "Dodaje nowy mecz",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "match",
+            "description": "Dane meczu do dodania",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Match"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Mecz został dodany",
+            "schema": {
+              "$ref": "#/definitions/Match"
+            }
+          }
+        }
+      }
+    },
+    "/search/{team}": {
+      "get": {
+        "summary": "Zwraca mecze dla podanej drużyny",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "team",
+            "description": " Nazwa drużyny",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Zwraca tablicę z meczami dla podanej drużyny",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Match"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Match": {
+      "type": "object",
+      "required": [
+        "HomeTeam",
+        "AwayTeam",
+        "HomeTeamGoals",
+        "AwayTeamGoal",
+        "DateUtc"],
+        "properties": {
+          "HomeTeam": {
+          "type": "string"
+          },
+          "AwayTeam": {
+          "type": "string"
+          },
+          "HomeTeamGoals": {
+          "type": "integer"
+          },
+          "AwayTeamGoals": {
+          "type": "integer"
+          },
+          "DateUtc": {
+          "type": "string",
+          "format": "date-time"
+          }
+          }
+        }
+      }
+    }
+          
+          
